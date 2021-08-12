@@ -12,7 +12,7 @@ async function run() {
     const zhToken = core.getInput("zh_token");
     let status = "";
 
-    // console.log(`The event payload: ${JSON.stringify(github.context.payload)}`);
+    console.log(`The event payload: ${JSON.stringify(github.context.payload)}`);
 
     //Branch or tag created
     if (event === "create") {
