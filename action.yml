@@ -1,0 +1,5 @@
+name: "zenhub-actions"
+description: "ZenHub API integration"
+runs:
+  using: "node12"
+  main: "index.js"
