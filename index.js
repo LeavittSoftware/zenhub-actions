@@ -65,7 +65,8 @@ async function run() {
 
       //supported "ref": "feature/74-ui-should-not-allow-selecting-merge-a",
       //supported "ref": "74-ui-should-not-allow-selecting-merge-a",
-      const issueNumber = parseInt(ref.match(/\d+/)[0], 10);
+      const match = ref.match(/\d+/);
+      const issueNumber = match ? parseInt(ref.match(/\d+/)[0], 10) : 0;
       const isValidIssueNumber = issueNumber > 0;
 
       if (isValidIssueNumber) {
