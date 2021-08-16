@@ -63,8 +63,9 @@ async function run() {
       console.log("Pull request created moving issue to 'Out for PR'...");
       const ref = github.context.payload.pull_request.head.ref;
 
-      //TODO: add support for  "ref": "feature/74-ui-should-not-allow-selecting-merge-a",
-      const issueNumber = parseInt(ref.replace(/(^\d+)(.+$)/i, "$1"), 10);
+      //supported "ref": "feature/74-ui-should-not-allow-selecting-merge-a",
+      //supported "ref": "74-ui-should-not-allow-selecting-merge-a",
+      const issueNumber = parseInt(ref.match(/\d+/)[0], 10);
       const isValidIssueNumber = issueNumber > 0;
 
       if (isValidIssueNumber) {
