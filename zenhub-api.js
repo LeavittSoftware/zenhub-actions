@@ -18,12 +18,10 @@ module.exports = class ZenHubApi {
           "X-Authentication-Token": zh_token,
         },
       });
-      console.log("res", res);
+      this.checkStatus(res);
       const json = await res.json();
-      console.log("json", json);
       return json.pipelines;
     } catch (error) {
-      console.log("error", JSON.stringify(error));
       console.log("Failed to get pipelines for issue", url, error.message);
     }
     return [];
