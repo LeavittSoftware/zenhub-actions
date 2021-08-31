@@ -76,6 +76,8 @@ async function run() {
           zhToken
         );
 
+        //TODO: make sure pipelines is an array
+        console.log(pipelines);
         for (let index = 0; index < pipelines.length; index++) {
           const p = pipelines[index];
           const pipelineId = LSS.Workspaces[p.workspace_id]
