@@ -76,31 +76,35 @@ async function run() {
           zhToken
         );
 
-        //TODO: make sure pipelines is an array
-        console.log(pipelines);
-        for (let index = 0; index < pipelines.length; index++) {
-          const p = pipelines[index];
-          const pipelineId = LSS.Workspaces[p.workspace_id]
-            ? LSS.Workspaces[p.workspace_id]["OutForPr"]
-            : null;
+        if (pipelines) {
+          for (let index = 0; index < pipelines.length; index++) {
+            const p = pipelines[index];
+            const pipelineId = LSS.Workspaces[p.workspace_id]
+              ? LSS.Workspaces[p.workspace_id]["OutForPr"]
+              : null;
 
-          if (pipelineId) {
-            console.log(
-              `Moving issue #${issueNumber} to 'Out for PR' in workspace ${p.workspace_id})...`
-            );
+            if (pipelineId) {
+              console.log(
+                `Moving issue #${issueNumber} to 'Out for PR' in workspace ${p.workspace_id})...`
+              );
 
-            await zenHubApi.moveValidIssue(
-              p.workspace_id,
-              repoId,
-              issueNumber,
-              pipelineId,
-              zhToken
-            );
-          } else {
-            console.log(
-              `'Out for PR' Pipeline Id not in map for workspace ${p.workspace_id}.`
-            );
+              await zenHubApi.moveValidIssue(
+                p.workspace_id,
+                repoId,
+                issueNumber,
+                pipelineId,
+                zhToken
+              );
+            } else {
+              console.log(
+                `'Out for PR' Pipeline Id not in map for workspace ${p.workspace_id}.`
+              );
+            }
           }
+        } else {
+          console.log(
+            `Unable to determine pipeline for issue #${issueNumber}, repo ${repoId}. Nothing to do...`
+          );
         }
       } else {
         console.log(`Invalid issue #`);
