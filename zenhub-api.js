@@ -11,6 +11,7 @@ module.exports = class ZenHubApi {
   }
 
   async getIssuePipelines(issue_number, repo_id, zh_token) {
+    console.log("getIssuePipelines", issue_number, repo_id);
     try {
       var url = `https://api.zenhub.com/p1/repositories/${repo_id}/issues/${issue_number}`;
       const res = await fetch(url, {
