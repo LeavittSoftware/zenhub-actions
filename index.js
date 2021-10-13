@@ -7,7 +7,7 @@ const zenHubApi = new ZenHubApi();
 
 async function run() {
   try {
-    const repoId = core.getInput("repo_id");
+    const repoId = github.context.payload.repository.id;
     const event = core.getInput("event");
     const zhToken = core.getInput("zh_token");
     let status = "";
@@ -19,16 +19,12 @@ async function run() {
       console.log("Branch created trigger issue move");
       console.log("payload.ref", github.context.payload.ref);
 
+      const refParts = github.context.payload.ref.split("/");
       const issueNumber = parseInt(
-        github.context.payload.ref.replace(/(^\d+)(.+$)/i, "$1"),
+        refParts[refParts.length - 1].replace(/(^\d+)(.+$)/i, "$1"),
         10
       );
 
-      //const refParts = github.context.payload.ref.split("/");
-      // const issueNumber = parseInt(
-      //   refParts[refParts.length - 1].replace(/(^\d+)(.+$)/i, "$1"),
-      //   10
-      // );
       const isValidIssueNumber = issueNumber > 0;
       if (isValidIssueNumber) {
         const pipelines = await zenHubApi.getIssuePipelines(
