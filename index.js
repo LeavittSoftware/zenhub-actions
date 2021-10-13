@@ -19,11 +19,16 @@ async function run() {
       console.log("Branch created trigger issue move");
       console.log("payload.ref", github.context.payload.ref);
 
-      const refParts = github.context.payload.ref.split("/");
       const issueNumber = parseInt(
-        refParts[refParts.length - 1].replace(/(^\d+)(.+$)/i, "$1"),
+        github.context.payload.ref.replace(/(^\d+)(.+$)/i, "$1"),
         10
       );
+
+      //const refParts = github.context.payload.ref.split("/");
+      // const issueNumber = parseInt(
+      //   refParts[refParts.length - 1].replace(/(^\d+)(.+$)/i, "$1"),
+      //   10
+      // );
       const isValidIssueNumber = issueNumber > 0;
       if (isValidIssueNumber) {
         const pipelines = await zenHubApi.getIssuePipelines(
