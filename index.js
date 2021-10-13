@@ -17,6 +17,7 @@ async function run() {
     //Branch or tag created
     if (event === "create") {
       console.log("Branch created trigger issue move");
+      console.log("payload.ref", github.context.payload.ref);
 
       const refParts = github.context.payload.ref.split("/");
       const issueNumber = parseInt(
